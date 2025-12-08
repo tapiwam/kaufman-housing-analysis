@@ -38,7 +38,19 @@ def parse_value(value: str, column: ColumnConfig) -> Any:
         if data_type in ('INTEGER', 'INT'):
             return int(value)
         elif data_type == 'BIGINT':
-            return int(value)
+            parsed_int = int(value)
+            
+            # Apply correction formula for assessed_val field
+            # The raw file stores values incorrectly encoded, need to decode:
+            # Formula: (last_2_digits * 10000) + (remaining_digits / 100)
+            # Example: 991200000000036 -> (36 * 10000) + (991200 / 100) = 369912
+            if column.name == 'assessed_val' and parsed_int > 0:
+                last_2 = parsed_int % 100
+                remaining = (parsed_int - last_2) // 1000000000
+                corrected_value = (last_2 * 10000) + (remaining // 100)
+                return corrected_value
+            
+            return parsed_int
         elif data_type == 'DECIMAL':
             # Handle implied decimal places if precision specified
             if column.precision and '.' not in value:
