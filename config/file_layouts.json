@@ -104,7 +104,7 @@
     {
       "fileName": "INFO",
       "tableName": "appraisal_info",
-      "description": "Main property/parcel information - Simplified layout with verified positions",
+      "description": "Main property/parcel information - Corrected layout with verified positions",
       "columns": [
         {
           "index": 0,
@@ -124,8 +124,8 @@
         },
         {
           "index": 2,
-          "name": "filler_1",
-          "description": "Filler after type code (includes sup indicator)",
+          "name": "filler_a",
+          "description": "Sup indicator area",
           "dataType": "VARCHAR",
           "length": 5,
           "nullable": true,
@@ -141,8 +141,8 @@
         },
         {
           "index": 4,
-          "name": "filler_gap1",
-          "description": "Gap from position 22 to 596",
+          "name": "filler_b",
+          "description": "Large gap with various data",
           "dataType": "VARCHAR",
           "length": 574,
           "nullable": true,
@@ -167,39 +167,87 @@
         {
           "index": 7,
           "name": "confidential_flag",
-          "description": "Confidential indicator",
+          "description": "Confidential flag",
           "dataType": "VARCHAR",
           "length": 1,
           "nullable": true
         },
         {
           "index": 8,
-          "name": "filler_gap2",
-          "description": "Gap from 679 to 745",
+          "name": "filler_c",
+          "description": "PY owner and other fields",
           "dataType": "VARCHAR",
-          "length": 66,
+          "length": 74,
           "nullable": true,
           "skip": true
         },
         {
           "index": 9,
-          "name": "situs_street",
-          "description": "Property street address",
+          "name": "mail_addr_line1",
+          "description": "Mailing address line 1",
+          "dataType": "VARCHAR",
+          "length": 80,
+          "nullable": true
+        },
+        {
+          "index": 10,
+          "name": "mail_addr_line2",
+          "description": "Mailing address line 2",
           "dataType": "VARCHAR",
           "length": 40,
           "nullable": true
         },
         {
-          "index": 10,
-          "name": "filler_gap3",
-          "description": "Gap from 785 to 873",
+          "index": 11,
+          "name": "mail_city",
+          "description": "Mailing city",
           "dataType": "VARCHAR",
-          "length": 88,
+          "length": 50,
+          "nullable": true
+        },
+        {
+          "index": 12,
+          "name": "mail_state",
+          "description": "Mailing state",
+          "dataType": "VARCHAR",
+          "length": 50,
+          "nullable": true
+        },
+        {
+          "index": 13,
+          "name": "mail_country",
+          "description": "Mailing country",
+          "dataType": "VARCHAR",
+          "length": 5,
+          "nullable": true
+        },
+        {
+          "index": 14,
+          "name": "mail_zip",
+          "description": "Mailing ZIP code",
+          "dataType": "VARCHAR",
+          "length": 10,
+          "nullable": true
+        },
+        {
+          "index": 15,
+          "name": "filler_d",
+          "description": "FF flags etc",
+          "dataType": "VARCHAR",
+          "length": 61,
           "nullable": true,
           "skip": true
         },
         {
-          "index": 11,
+          "index": 16,
+          "name": "situs_street",
+          "description": "Property street address",
+          "dataType": "VARCHAR",
+          "length": 60,
+          "nullable": true
+        },
+        {
+          "index": 17,
           "name": "situs_city",
           "description": "Property city",
           "dataType": "VARCHAR",
@@ -207,45 +255,27 @@
           "nullable": true
         },
         {
-          "index": 12,
-          "name": "filler_gap4",
-          "description": "Gap from 903 to 978",
-          "dataType": "VARCHAR",
-          "length": 75,
-          "nullable": true,
-          "skip": true
-        },
-        {
-          "index": 13,
+          "index": 18,
           "name": "situs_zip",
-          "description": "Property ZIP",
+          "description": "Property ZIP code",
           "dataType": "VARCHAR",
           "length": 10,
           "nullable": true
         },
         {
-          "index": 14,
-          "name": "filler_gap5",
-          "description": "Gap from 988 to 1145",
-          "dataType": "VARCHAR",
-          "length": 157,
-          "nullable": true,
-          "skip": true
-        },
-        {
-          "index": 15,
+          "index": 19,
           "name": "legal_desc",
           "description": "Legal description",
           "dataType": "VARCHAR",
-          "length": 150,
+          "length": 340,
           "nullable": true
         },
         {
-          "index": 16,
-          "name": "remainder",
-          "description": "Remainder of line - to be parsed later if needed",
+          "index": 20,
+          "name": "filler_rest",
+          "description": "Remaining file content",
           "dataType": "VARCHAR",
-          "length": 7968,
+          "length": 7774,
           "nullable": true,
           "skip": true
         }

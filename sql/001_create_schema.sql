@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS cad.appraisal_entity_totals (
 -- Main Property Tables
 -- =====================================================
 
--- Main property information (simplified layout with verified positions)
+-- Main property information (with mailing address for owner-occupancy analysis)
 CREATE TABLE IF NOT EXISTS cad.appraisal_info (
     id SERIAL PRIMARY KEY,
     prop_id BIGINT,
@@ -99,7 +99,13 @@ CREATE TABLE IF NOT EXISTS cad.appraisal_info (
     owner_id BIGINT,
     owner_name VARCHAR(70),
     confidential_flag VARCHAR(1),
-    situs_street VARCHAR(40),
+    mail_addr_line1 VARCHAR(80),
+    mail_addr_line2 VARCHAR(80),
+    mail_city VARCHAR(50),
+    mail_state VARCHAR(50),
+    mail_country VARCHAR(20),
+    mail_zip VARCHAR(10),
+    situs_street VARCHAR(60),
     situs_city VARCHAR(30),
     situs_zip VARCHAR(10),
     legal_desc VARCHAR(150),
@@ -108,6 +114,7 @@ CREATE TABLE IF NOT EXISTS cad.appraisal_info (
 
 CREATE INDEX IF NOT EXISTS idx_appraisal_info_prop_id ON cad.appraisal_info(prop_id);
 CREATE INDEX IF NOT EXISTS idx_appraisal_info_year ON cad.appraisal_info(prop_val_yr);
+CREATE INDEX IF NOT EXISTS idx_appraisal_info_legal_desc ON cad.appraisal_info USING gin(to_tsvector('english', legal_desc));
 
 -- Property-entity relationships
 CREATE TABLE IF NOT EXISTS cad.appraisal_entity_info (
