@@ -18,6 +18,8 @@ class ColumnConfig:
     nullable: bool = True
     precision: Optional[int] = None
     skip: bool = False
+    start: Optional[int] = None
+    codeMappings: Optional[dict] = None
     
     def __post_init__(self):
         """Validate column configuration."""

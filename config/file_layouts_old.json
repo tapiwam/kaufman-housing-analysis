@@ -1,10 +1,10 @@
 {
   "description": "Kaufman County CAD 2025 Appraisal Data Export Layout Configuration",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "source": "Kaufman Central Appraisal District",
   "taxYear": 2025,
   "filePrefix": "2025-10-27_002174_APPRAISAL_",
-  "encoding": "latin1",
+  "encoding": "utf-8",
   "files": [
     {
       "fileName": "HEADER",
@@ -104,7 +104,7 @@
     {
       "fileName": "INFO",
       "tableName": "appraisal_info",
-      "description": "Main property/parcel information",
+      "description": "Main property/parcel information - Corrected layout with verified positions",
       "columns": [
         {
           "index": 0,
@@ -112,7 +112,6 @@
           "description": "Property ID",
           "dataType": "BIGINT",
           "length": 12,
-          "start": 1,
           "nullable": true
         },
         {
@@ -121,14 +120,7 @@
           "description": "Property type code",
           "dataType": "VARCHAR",
           "length": 1,
-          "start": 13,
-          "nullable": true,
-          "codeMappings": {
-            "R": "Real",
-            "P": "Personal",
-            "M": "Mineral",
-            "A": "Automobile"
-          }
+          "nullable": true
         },
         {
           "index": 2,
@@ -136,7 +128,6 @@
           "description": "Sup indicator area",
           "dataType": "VARCHAR",
           "length": 5,
-          "start": 14,
           "nullable": true,
           "skip": true
         },
@@ -146,7 +137,6 @@
           "description": "Property value year",
           "dataType": "INTEGER",
           "length": 4,
-          "start": 19,
           "nullable": true
         },
         {
@@ -155,7 +145,6 @@
           "description": "Large gap with various data",
           "dataType": "VARCHAR",
           "length": 574,
-          "start": 23,
           "nullable": true,
           "skip": true
         },
@@ -165,7 +154,6 @@
           "description": "Owner ID",
           "dataType": "BIGINT",
           "length": 12,
-          "start": 597,
           "nullable": true
         },
         {
@@ -174,7 +162,6 @@
           "description": "Owner name",
           "dataType": "VARCHAR",
           "length": 70,
-          "start": 609,
           "nullable": true
         },
         {
@@ -183,7 +170,6 @@
           "description": "Confidential flag",
           "dataType": "VARCHAR",
           "length": 1,
-          "start": 679,
           "nullable": true
         },
         {
@@ -192,7 +178,6 @@
           "description": "PY owner and other fields",
           "dataType": "VARCHAR",
           "length": 74,
-          "start": 680,
           "nullable": true,
           "skip": true
         },
@@ -202,7 +187,6 @@
           "description": "Mailing address line 1",
           "dataType": "VARCHAR",
           "length": 80,
-          "start": 754,
           "nullable": true
         },
         {
@@ -211,7 +195,6 @@
           "description": "Mailing address line 2",
           "dataType": "VARCHAR",
           "length": 40,
-          "start": 834,
           "nullable": true
         },
         {
@@ -220,7 +203,6 @@
           "description": "Mailing city",
           "dataType": "VARCHAR",
           "length": 50,
-          "start": 874,
           "nullable": true
         },
         {
@@ -229,7 +211,6 @@
           "description": "Mailing state",
           "dataType": "VARCHAR",
           "length": 50,
-          "start": 924,
           "nullable": true
         },
         {
@@ -238,7 +219,6 @@
           "description": "Mailing country",
           "dataType": "VARCHAR",
           "length": 5,
-          "start": 974,
           "nullable": true
         },
         {
@@ -247,7 +227,6 @@
           "description": "Mailing ZIP code",
           "dataType": "VARCHAR",
           "length": 10,
-          "start": 979,
           "nullable": true
         },
         {
@@ -256,7 +235,6 @@
           "description": "FF flags etc",
           "dataType": "VARCHAR",
           "length": 61,
-          "start": 989,
           "nullable": true,
           "skip": true
         },
@@ -266,7 +244,6 @@
           "description": "Property street address",
           "dataType": "VARCHAR",
           "length": 60,
-          "start": 1050,
           "nullable": true
         },
         {
@@ -275,7 +252,6 @@
           "description": "Property city",
           "dataType": "VARCHAR",
           "length": 30,
-          "start": 1110,
           "nullable": true
         },
         {
@@ -284,7 +260,6 @@
           "description": "Property ZIP code",
           "dataType": "VARCHAR",
           "length": 10,
-          "start": 1140,
           "nullable": true
         },
         {
@@ -293,7 +268,6 @@
           "description": "Legal description",
           "dataType": "VARCHAR",
           "length": 340,
-          "start": 1150,
           "nullable": true
         },
         {
@@ -302,7 +276,6 @@
           "description": "Remaining file content",
           "dataType": "VARCHAR",
           "length": 7774,
-          "start": 1490,
           "nullable": true,
           "skip": true
         }
@@ -344,7 +317,8 @@
     {
       "fileName": "ENTITY_INFO",
       "tableName": "appraisal_entity_info",
-      "description": "Property to taxing entity relationships and values",
+      "description": "Property-entity relationships",
+      "primaryKey": ["prop_id", "tax_year", "entity_id"],
       "columns": [
         {
           "index": 0,
@@ -352,7 +326,6 @@
           "description": "Property ID",
           "dataType": "BIGINT",
           "length": 12,
-          "start": 1,
           "nullable": false
         },
         {
@@ -361,7 +334,6 @@
           "description": "Tax year",
           "dataType": "INTEGER",
           "length": 4,
-          "start": 14,
           "nullable": false
         },
         {
@@ -370,7 +342,6 @@
           "description": "Entity ID",
           "dataType": "VARCHAR",
           "length": 5,
-          "start": 49,
           "nullable": false
         },
         {
@@ -379,7 +350,6 @@
           "description": "Entity code",
           "dataType": "VARCHAR",
           "length": 10,
-          "start": 54,
           "nullable": true
         },
         {
@@ -388,53 +358,38 @@
           "description": "Entity name",
           "dataType": "VARCHAR",
           "length": 50,
-          "start": 64,
           "nullable": true
         },
         {
           "index": 5,
-          "name": "entity_flag",
-          "description": "Entity flag",
-          "dataType": "VARCHAR",
-          "length": 1,
-          "start": 114,
-          "nullable": true,
-          "skip": true
-        },
-        {
-          "index": 6,
           "name": "taxable_val",
           "description": "Taxable value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 115,
           "nullable": true
         },
         {
-          "index": 7,
+          "index": 6,
           "name": "exempt_val",
           "description": "Exempt value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 130,
           "nullable": true
         },
         {
-          "index": 8,
+          "index": 7,
           "name": "freeze_val",
           "description": "Freeze value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 145,
           "nullable": true
         },
         {
-          "index": 9,
+          "index": 8,
           "name": "assessed_val",
           "description": "Assessed value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 160,
           "nullable": true
         }
       ]
@@ -450,8 +405,7 @@
           "name": "entity_cd",
           "description": "Entity code",
           "dataType": "VARCHAR",
-          "length": 7,
-          "start": 11,
+          "length": 10,
           "nullable": false
         },
         {
@@ -459,8 +413,7 @@
           "name": "entity_name",
           "description": "Entity name",
           "dataType": "VARCHAR",
-          "length": 70,
-          "start": 18,
+          "length": 50,
           "nullable": true
         },
         {
@@ -469,7 +422,6 @@
           "description": "Total appraised value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 88,
           "nullable": true
         },
         {
@@ -478,7 +430,6 @@
           "description": "Total taxable value",
           "dataType": "BIGINT",
           "length": 15,
-          "start": 103,
           "nullable": true
         },
         {
@@ -487,7 +438,6 @@
           "description": "Property count",
           "dataType": "INTEGER",
           "length": 10,
-          "start": 118,
           "nullable": true
         }
       ]

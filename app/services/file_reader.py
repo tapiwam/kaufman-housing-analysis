@@ -27,6 +27,10 @@ def parse_value(value: str, column: ColumnConfig) -> Any:
     # Handle empty values
     if not value:
         return None
+        
+    # Apply code mappings if available
+    if column.codeMappings and value in column.codeMappings:
+        value = column.codeMappings[value]
     
     data_type = column.dataType.upper()
     
@@ -65,10 +69,27 @@ def parse_line(line: str, file_config: FileConfig) -> Dict[str, Any]:
     position = 0
     
     for column in file_config.columns:
+        # Determine start and end positions
+        if column.start is not None:
+            # Use explicit start position (convert 1-based to 0-based)
+            start_position = column.start - 1
+            end_position = start_position + column.length
+            # Update current position pointer for subsequent sequential columns if mixed
+            position = end_position
+        else:
+            # Use sequential positioning
+            start_position = position
+            end_position = position + column.length
+            position = end_position
+
         # Extract the field value
-        end_position = position + column.length
-        raw_value = line[position:end_position] if len(line) >= end_position else ""
-        position = end_position
+        # Handle case where line is shorter than expected
+        if len(line) >= end_position:
+            raw_value = line[start_position:end_position]
+        elif len(line) > start_position:
+            raw_value = line[start_position:]
+        else:
+            raw_value = ""
         
         # Skip columns marked as skip
         if column.skip:

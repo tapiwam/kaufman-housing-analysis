@@ -236,9 +236,11 @@ class DatabaseService:
                                     cur.execute(sql_str, row)
                                 conn.commit()
                                 inserted += 1
-                            except Exception:
+                            except Exception as e:
                                 conn.rollback()
                                 skipped += 1
+                                if skipped <= 5:
+                                    logger.error(f"Error inserting record: {e}")
                     batch = []
                     
                     if inserted % 10000 == 0:
@@ -259,9 +261,11 @@ class DatabaseService:
                                 cur.execute(sql_str, row)
                             conn.commit()
                             inserted += 1
-                        except Exception:
+                        except Exception as e:
                             conn.rollback()
                             skipped += 1
+                            if skipped <= 5:
+                                logger.error(f"Error inserting record (final batch): {e}")
         
         if skipped > 0:
             logger.warning(f"Skipped {skipped} bad records")
