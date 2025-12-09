@@ -31,12 +31,25 @@ build/
 Thumbs.db
 
 # Data files (large)
+Kaufman-CAD-*/
 *.csv.gz
 *.parquet
+
+# Output files
+*.csv
+!analysis/*.csv
 
 # Logs
 *.log
 logs/
 
+# Backup/Old files
+OLD/
+*_old.*
+*_backup.*
+
 # Docker
 docker-compose.override.yml
+
+# PDF documentation (large)
+*.pdf

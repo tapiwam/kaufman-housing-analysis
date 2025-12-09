@@ -119,7 +119,9 @@ kaufman-housing-analysis/
 ├── .github/
 │   └── copilot-instructions.md    # AI coding assistant guidelines
 ├── analysis/                       # Analysis notebooks
-│   └── gateway_parks_analysis.ipynb
+│   ├── gateway_parks_analysis.ipynb
+│   ├── gateway_parks_analysis.csv    # Analysis output
+│   └── gateway_parks_investors.csv   # Investor subset
 ├── app/                            # Main application code
 │   ├── models/                     # Data models
 │   │   └── layout.py              # File layout configuration
@@ -140,14 +142,12 @@ kaufman-housing-analysis/
 │   └── load_data.py               # Data loading script
 ├── sql/                            # SQL scripts
 │   ├── 001_create_schema.sql      # Database schema
-│   ├── 002_create_indexes.sql     # Index creation
-│   ├── 003_fix_assessed_values.sql # Value correction migration
 │   └── examples/                   # Example queries
 │       └── basic_queries.sql
 ├── Kaufman-CAD-2025-.../           # Data files (not in git)
+├── OLD/                            # Archived/experimental files
 ├── docker-compose.yml              # Docker services config
 ├── requirements.txt                # Python dependencies
-├── housing1.ipynb                  # Legacy/development notebook
 └── README.md                       # This file
 ```
 
@@ -244,9 +244,14 @@ Complete analysis notebook: `analysis/gateway_parks_analysis.ipynb`
 - Classifies owner-occupied vs investor properties (68% vs 32%)
 - Extracts detailed value breakdowns (land, improvements, homesite/non-homesite)
 - Identifies largest investors and corporate ownership patterns
-- Exports results to CSV
+- Exports results to `analysis/gateway_parks_analysis.csv` and `analysis/gateway_parks_investors.csv`
 
 **Key Finding:** 406 investor-owned properties (~32%), with top investor owning 67 properties
+
+**Output Files:**
+
+- `analysis/gateway_parks_analysis.csv` - Complete dataset with all properties
+- `analysis/gateway_parks_investors.csv` - Investor properties only
 
 ### Custom Analysis Template
 
