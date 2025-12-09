@@ -57,14 +57,7 @@ git clone https://github.com/tapiwam/kaufman-housing-analysis.git
 cd kaufman-housing-analysis
 ```
 
-2. **Download CAD data**
-
-Download the latest data from [Kaufman CAD Public Info](https://kaufman-cad.org/public-info/):
-
-- Direct link: [2025 Certified Full Roll Download](https://kaufman-cad.org/wp-content/uploads/2025/11/Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5.zip)
-- Extract to project root (creates `Kaufman-CAD-2025-...` directory)
-
-3. **Run automated setup**
+2. **Run automated setup**
 
 ```bash
 chmod +x scripts/setup.sh
@@ -73,12 +66,16 @@ chmod +x scripts/setup.sh
 
 This script will:
 
+- Check prerequisites (Python, Docker, unzip)
+- Offer to download 2025 CAD data automatically
 - Create Python virtual environment
 - Install dependencies
 - Start Docker containers (PostgreSQL + pgAdmin)
 - Load all data into database (~5-10 minutes)
 
-4. **Start analyzing**
+**Note:** The script will prompt you to download the CAD data automatically if it's not found. You can also download manually (see below).
+
+3. **Start analyzing**
 
 ```bash
 source .venv/bin/activate
@@ -86,6 +83,22 @@ jupyter notebook
 ```
 
 Open `analysis/gateway_parks_analysis.ipynb` to see a complete analysis example.
+
+### Manual Data Download (Optional)
+
+If you prefer to download the data manually or the automated download fails:
+
+1. **Download the latest data** from [Kaufman CAD Public Info](https://kaufman-cad.org/public-info/):
+
+   - Direct link: [2025 Certified Full Roll Download](https://kaufman-cad.org/wp-content/uploads/2025/11/Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5.zip)
+
+2. **Extract to project root** (creates `Kaufman-CAD-2025-...` directory)
+
+3. **Re-run setup script** to load the data:
+
+```bash
+./scripts/setup.sh
+```
 
 ## Data Source
 

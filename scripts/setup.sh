@@ -63,7 +63,62 @@ if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/
 fi
 log_success "Docker Compose found"
 
-# Step 2: Create virtual environment
+if ! command -v unzip &> /dev/null; then
+    log_warn "unzip is not installed. Will skip automated data download."
+    UNZIP_AVAILABLE=false
+else
+    UNZIP_AVAILABLE=true
+fi
+
+# Step 2: Download and extract CAD data (if needed)
+DATA_DIR_2025="Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5"
+DATA_URL_2025="https://kaufman-cad.org/wp-content/uploads/2025/11/Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5.zip"
+
+if [ ! -d "$DATA_DIR_2025" ]; then
+    log_info "CAD data directory not found: $DATA_DIR_2025"
+    
+    if [ "$UNZIP_AVAILABLE" = true ]; then
+        read -p "Would you like to download 2025 CAD data automatically? (y/N): " -n 1 -r
+        echo
+        
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            log_info "Downloading 2025 CAD data from kaufman-cad.org..."
+            log_info "This may take a few minutes (file is ~100MB)..."
+            
+            if command -v curl &> /dev/null; then
+                curl -L -o "cad_data_2025.zip" "$DATA_URL_2025" --progress-bar
+            elif command -v wget &> /dev/null; then
+                wget -O "cad_data_2025.zip" "$DATA_URL_2025"
+            else
+                log_error "Neither curl nor wget found. Cannot download data automatically."
+                log_info "Please download manually from: $DATA_URL_2025"
+                exit 1
+            fi
+            
+            log_success "Download complete"
+            log_info "Extracting data files..."
+            
+            unzip -q "cad_data_2025.zip"
+            rm "cad_data_2025.zip"
+            
+            log_success "Data extracted to $DATA_DIR_2025"
+        else
+            log_warn "Data download skipped"
+            log_info "Please download manually from: $DATA_URL_2025"
+            log_info "Extract to project root and re-run this script"
+            exit 1
+        fi
+    else
+        log_warn "unzip not available - cannot download data automatically"
+        log_info "Please download manually from: $DATA_URL_2025"
+        log_info "Extract to project root and re-run this script"
+        exit 1
+    fi
+else
+    log_success "CAD data directory found: $DATA_DIR_2025"
+fi
+
+# Step 3: Create virtual environment
 log_info "Creating Python virtual environment..."
 
 if [ -d ".venv" ]; then
