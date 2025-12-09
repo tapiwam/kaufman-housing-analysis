@@ -215,12 +215,14 @@ A nuanced approach is needed—one that targets specific problem areas. Further 
 
 All analysis is reproducible and available in this repository:
 
-| Resource                                                                            | Description                                         |
-| ----------------------------------------------------------------------------------- | --------------------------------------------------- |
+| Resource | Description |
+|----------|-------------|
 | [**Full Analysis Notebook**](analysis/gateway_parks_crime_ownership_analysis.ipynb) | Complete Jupyter notebook with code and methodology |
-| [**Street Statistics CSV**](analysis/gateway_ownership_by_street.csv)               | Ownership statistics for every street               |
-| [**High-Crime Properties CSV**](analysis/gateway_high_crime_streets_properties.csv) | Property-level data for flagged streets             |
-| [**Full Dataset CSV**](analysis/gateway_parks_full_analysis.csv)                    | Complete property dataset with classifications      |
+| [**Street Statistics CSV**](https://raw.githubusercontent.com/tapiwam/kaufman-housing-analysis/main/docs/analysis/gateway_ownership_by_street.csv) | Ownership statistics for every street |
+| [**High-Crime Properties CSV**](https://raw.githubusercontent.com/tapiwam/kaufman-housing-analysis/main/docs/analysis/gateway_high_crime_streets_properties.csv) | Property-level data for flagged streets |
+| [**Full Dataset CSV**](https://raw.githubusercontent.com/tapiwam/kaufman-housing-analysis/main/docs/analysis/gateway_parks_full_analysis.csv) | Complete property dataset with classifications |
+
+> **Tip:** Click the CSV links to download directly, or view them on GitHub by replacing `raw.githubusercontent.com` with `github.com` and removing `/main`.
 
 ---
 

@@ -1,19 +1,22 @@
-# Kaufman CAD Property Appraisal Analysis
+# Kaufman County Housing Analysis
 
 A comprehensive Python application for analyzing property appraisal data from Kaufman County Central Appraisal District (CAD). This project parses fixed-width text files, loads data into PostgreSQL, and provides tools for in-depth property analysis including ownership patterns, value distributions, and investor identification.
+
+**🌐 [View Project Website](https://tapiwam.github.io/kaufman-housing-analysis/)** | **📊 [Data Dictionary](docs/DATA_DICTIONARY.md)**
 
 ---
 
 ## 📊 Featured Research: Gateway Parks Crime & Rental Analysis
 
-**[Read the Full Analysis →](docs/GATEWAY_PARKS_CRIME_RENTAL_ANALYSIS.md)**
+**[Read the Full Analysis →](https://tapiwam.github.io/kaufman-housing-analysis/GATEWAY_PARKS_CRIME_RENTAL_ANALYSIS)**
 
-An investigation into the relationship between investor-owned rental properties and crime in Gateway Parks, Forney, Texas. Key findings include:
+An investigation into whether investor-owned rental properties are driving crime in a Forney subdivision—as residents claim. Key findings include:
 
 - **76.5% of Pueblo Drive** homes are investor-owned (vs. 28% neighborhood average)
-- **13 streets** identified with abnormally high rental concentrations
+- **13 streets** identified with abnormally high rental concentrations (>40%)
 - Analysis of **1,208 properties** with ownership classification
-- Institutional investors from **Georgia, Arizona, California** identified
+- Institutional investors from **Georgia, Arizona, California, Nevada** identified
+- **Nuanced conclusion**: Correlation exists on specific streets, but not a blanket explanation
 
 ---
 
