@@ -1,291 +1,490 @@
-# Kaufman CAD Data Loader
+# Kaufman CAD Property Appraisal Analysis
 
-A Python application to parse and load Kaufman County Central Appraisal District (CAD) property appraisal data from fixed-width text files into a PostgreSQL database.
+A comprehensive Python application for analyzing property appraisal data from Kaufman County Central Appraisal District (CAD). This project parses fixed-width text files, loads data into PostgreSQL, and provides tools for in-depth property analysis including ownership patterns, value distributions, and investor identification.
+
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-16-blue.svg)](https://www.postgresql.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Data Source](#data-source)
+- [Project Structure](#project-structure)
+- [Detailed Setup](#detailed-setup)
+- [Loading Data](#loading-data)
+- [Analysis Examples](#analysis-examples)
+- [Database Schema](#database-schema)
+- [Data Dictionary](#data-dictionary)
+- [Development](#development)
+- [Troubleshooting](#troubleshooting)
 
 ## Overview
 
 This project provides tools to:
 
-- Parse fixed-width text files from CAD data exports
-- Load data into a PostgreSQL database
-- Query and analyze property appraisal data
+- **Parse** fixed-width text files from CAD data exports (complex format with 1,200+ character lines)
+- **Load** property, land, improvement, and entity data into PostgreSQL
+- **Analyze** ownership patterns, property values, and subdivision demographics
+- **Export** results to CSV for further analysis or reporting
+
+## Features
+
+- ✅ **Automated Setup** - Single script to set up environment, database, and load data
+- ✅ **Fixed-Width Parsing** - Handles complex CAD export format with proper encoding
+- ✅ **Value Correction** - Applies formula to fix incorrectly parsed assessed values
+- ✅ **Comprehensive Schema** - PostgreSQL schema with indexes and relationships
+- ✅ **Analysis Notebooks** - Pre-built Jupyter notebooks for common analyses
+- ✅ **SQL Examples** - Library of example queries for exploration
+- ✅ **Docker Support** - Containerized PostgreSQL and pgAdmin for easy setup
+
+## Quick Start
+
+### Prerequisites
+
+- **Python 3.9+** - [Download](https://www.python.org/downloads/)
+- **Docker & Docker Compose** - [Download](https://www.docker.com/products/docker-desktop/)
+- **Git** - [Download](https://git-scm.com/downloads)
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/tapiwam/kaufman-housing-analysis.git
+cd kaufman-housing-analysis
+```
+
+2. **Download CAD data**
+
+Download the latest data from [Kaufman CAD Public Info](https://kaufman-cad.org/public-info/):
+
+- Direct link: [2025 Certified Full Roll Download](https://kaufman-cad.org/wp-content/uploads/2025/11/Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5.zip)
+- Extract to project root (creates `Kaufman-CAD-2025-...` directory)
+
+3. **Run automated setup**
+
+```bash
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+```
+
+This script will:
+
+- Create Python virtual environment
+- Install dependencies
+- Start Docker containers (PostgreSQL + pgAdmin)
+- Load all data into database (~5-10 minutes)
+
+4. **Start analyzing**
+
+```bash
+source .venv/bin/activate
+jupyter notebook
+```
+
+Open `analysis/gateway_parks_analysis.ipynb` to see a complete analysis example.
+
+## Data Source
+
+**Source:** Kaufman County Central Appraisal District  
+**Website:** https://kaufman-cad.org/public-info/  
+**Download:** https://kaufman-cad.org/wp-content/uploads/2025/11/Kaufman-CAD-2025-Certified-Full-Roll-Download-updated-with-Supp-5.zip
+
+**Data Description:**
+
+- **Format:** Fixed-width text files (TXT)
+- **Tax Year:** 2025
+- **Records:** ~200,000+ properties
+- **Coverage:** All properties in Kaufman County, Texas
+- **Update Frequency:** Annually with supplements
+
+**Included Files:**
+
+- `APPRAISAL_INFO.TXT` - Property ownership and addresses
+- `APPRAISAL_ENTITY_INFO.TXT` - Property values by taxing entity
+- `APPRAISAL_LAND_DETAIL.TXT` - Land parcel details
+- `APPRAISAL_IMPROVEMENT_INFO.TXT` - Building/structure information
+- `APPRAISAL_IMPROVEMENT_DETAIL.TXT` - Detailed building components
+- And 10+ additional supporting files
+
+See [Data Dictionary](docs/DATA_DICTIONARY.md) for complete field definitions.
 
 ## Project Structure
 
 ```
-housing1/
-├── app/                          # Main application code
-│   ├── __init__.py
-│   ├── config.py                 # Configuration settings
-│   ├── models/                   # Data models
-│   │   ├── __init__.py
-│   │   └── layout.py            # File layout configuration models
-│   ├── services/                 # Business logic services
-│   │   ├── __init__.py
-│   │   ├── file_reader.py       # Fixed-width file parser
-│   │   ├── database.py          # Database operations
-│   │   └── loader.py            # Data loading orchestration
-│   └── utils/                    # Utility functions
-│       ├── __init__.py
-│       └── logging_config.py    # Logging setup
-├── config/                       # Configuration files
-│   └── file_layouts.json        # File layout definitions
-├── docs/                         # Documentation
-│   └── data_layout.md           # Data layout documentation
-├── sql/                          # SQL scripts
-│   └── 001_create_schema.sql    # Database schema creation
-├── Kaufman-CAD-2025-.../         # Data files directory
-├── docker-compose.yml            # Docker services configuration
-├── requirements.txt              # Python dependencies
-├── housing1.ipynb               # Testing/prototyping notebook
-└── README.md                    # This file
+kaufman-housing-analysis/
+├── .github/
+│   └── copilot-instructions.md    # AI coding assistant guidelines
+├── analysis/                       # Analysis notebooks
+│   └── gateway_parks_analysis.ipynb
+├── app/                            # Main application code
+│   ├── models/                     # Data models
+│   │   └── layout.py              # File layout configuration
+│   ├── services/                   # Business logic
+│   │   ├── file_reader.py         # Fixed-width file parser
+│   │   ├── database.py            # Database operations
+│   │   └── loader.py              # Data loading orchestration
+│   ├── utils/                      # Utilities
+│   │   └── logging_config.py      # Logging setup
+│   └── config.py                   # Configuration settings
+├── config/                         # Configuration files
+│   └── file_layouts.json          # File format definitions
+├── docs/                           # Documentation
+│   ├── DATA_DICTIONARY.md         # Complete data dictionary
+│   └── data_layout.md             # Original layout documentation
+├── scripts/                        # Utility scripts
+│   ├── setup.sh                   # Automated setup script
+│   └── load_data.py               # Data loading script
+├── sql/                            # SQL scripts
+│   ├── 001_create_schema.sql      # Database schema
+│   ├── 002_create_indexes.sql     # Index creation
+│   ├── 003_fix_assessed_values.sql # Value correction migration
+│   └── examples/                   # Example queries
+│       └── basic_queries.sql
+├── Kaufman-CAD-2025-.../           # Data files (not in git)
+├── docker-compose.yml              # Docker services config
+├── requirements.txt                # Python dependencies
+├── housing1.ipynb                  # Legacy/development notebook
+└── README.md                       # This file
 ```
 
-## Prerequisites
+## Detailed Setup
 
-- Python 3.9+
-- Docker and Docker Compose
-- pip (Python package manager)
+### Manual Setup (Alternative to script)
 
-## Quick Start
+If you prefer manual setup or the automated script fails:
 
-### 1. Start the Database
+#### 1. Create Virtual Environment
 
 ```bash
-# Start PostgreSQL and pgAdmin containers
-docker-compose up -d
-
-# Verify containers are running
-docker-compose ps
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-Database will be available at:
-
-- PostgreSQL: `localhost:5432`
-- pgAdmin: `http://localhost:5050` (admin@admin.com / admin)
-
-### 2. Install Python Dependencies
+#### 2. Install Dependencies
 
 ```bash
-# Create virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 3. Initialize Database Schema
-
-The schema is automatically created when the container starts, or you can run it manually:
-
-```python
-from app.services.database import DatabaseService
-
-db = DatabaseService()
-db.execute_sql_file("sql/001_create_schema.sql")
-```
-
-### 4. Load Data
-
-Using the notebook:
+#### 3. Start Docker Services
 
 ```bash
-jupyter notebook housing1.ipynb
+docker-compose up -d
 ```
 
-Or programmatically:
+Wait for PostgreSQL to be ready:
 
-```python
-from app.services.loader import DataLoader
-
-loader = DataLoader()
-
-# Load all files
-results = loader.load_all_files()
-
-# Or load specific files
-results = loader.load_file("ABSTRACT_SUBDV")
+```bash
+docker logs kaufman_cad_db -f
+# Look for: "database system is ready to accept connections"
 ```
 
-## Configuration
+#### 4. Verify Database Connection
 
-### Database Settings
+```bash
+docker exec kaufman_cad_db psql -U cad_user -d kaufman_cad -c "SELECT version();"
+```
 
-Edit `app/config.py` or use environment variables:
+## Loading Data
 
-| Variable    | Default      | Description       |
-| ----------- | ------------ | ----------------- |
-| DB_HOST     | localhost    | Database host     |
-| DB_PORT     | 5432         | Database port     |
-| DB_NAME     | kaufman_cad  | Database name     |
-| DB_USER     | cad_user     | Database user     |
-| DB_PASSWORD | cad_password | Database password |
+### Using the Automated Script
 
-### File Layouts
+```bash
+source .venv/bin/activate
+python scripts/load_data.py
+```
 
-File layouts are defined in `config/file_layouts.json`. Each file type specifies:
+This loads all tables in the correct order with progress indicators.
 
-- Column positions and lengths
-- Data types
-- Table mapping
+### Using Jupyter Notebook
 
-## Data Files
+Open `housing1.ipynb` and run cells sequentially to load data interactively.
 
-The following CAD export files are supported:
+### Expected Load Times
 
-| File                    | Description                | Records |
-| ----------------------- | -------------------------- | ------- |
-| HEADER                  | Export metadata            | 1       |
-| INFO                    | Main property data         | ~104K   |
-| ENTITY                  | Taxing entity codes        | 65      |
-| ENTITY_INFO             | Property-entity links      | ~511K   |
-| LAND_DETAIL             | Land segments              | ~103K   |
-| IMPROVEMENT_INFO        | Building summary           | ~102K   |
-| IMPROVEMENT_DETAIL      | Building details           | ~348K   |
-| IMPROVEMENT_DETAIL_ATTR | Building attributes        | ~409K   |
-| ABSTRACT_SUBDV          | Abstract/subdivision codes | ~2.5K   |
-| AGENT                   | Agent information          | ~1K     |
-| And more...             |                            |         |
+| Table                        | Records  | Time | Rate    |
+| ---------------------------- | -------- | ---- | ------- |
+| Reference Tables             | ~500     | <1s  | -       |
+| appraisal_info               | ~207,000 | ~30s | 7,000/s |
+| appraisal_entity_info        | ~511,000 | ~60s | 8,500/s |
+| appraisal_land_detail        | ~230,000 | ~40s | 5,700/s |
+| appraisal_improvement_info   | ~175,000 | ~30s | 5,800/s |
+| appraisal_improvement_detail | ~610,000 | ~90s | 6,800/s |
 
-## Usage Examples
+**Total:** ~10-15 minutes for complete load
 
-### Read and Parse Files
+### Verifying Data
+
+```sql
+-- Check record counts
+SELECT
+    'appraisal_info' as table_name, COUNT(*) FROM cad.appraisal_info
+UNION ALL
+SELECT
+    'appraisal_entity_info', COUNT(*) FROM cad.appraisal_entity_info
+UNION ALL
+SELECT
+    'appraisal_land_detail', COUNT(*) FROM cad.appraisal_land_detail;
+```
+
+## Analysis Examples
+
+### Gateway Parks Subdivision Analysis
+
+Complete analysis notebook: `analysis/gateway_parks_analysis.ipynb`
+
+**Features:**
+
+- Identifies all 1,286 properties in Gateway Parks
+- Classifies owner-occupied vs investor properties (68% vs 32%)
+- Extracts detailed value breakdowns (land, improvements, homesite/non-homesite)
+- Identifies largest investors and corporate ownership patterns
+- Exports results to CSV
+
+**Key Finding:** 406 investor-owned properties (~32%), with top investor owning 67 properties
+
+### Custom Analysis Template
 
 ```python
-from app.models.layout import load_layout_config
-from app.services.file_reader import read_all_records, get_file_path
-from app.config import DATA_DIR, CONFIG_DIR
-
-# Load configuration
-config = load_layout_config(CONFIG_DIR / "file_layouts.json")
-
-# Get file configuration
-file_config = config.get_file_config("INFO")
-
-# Read records
-file_path = get_file_path(DATA_DIR, config.filePrefix, "INFO")
-records = read_all_records(file_path, file_config, max_records=100)
-
-# Convert to DataFrame
+import psycopg2
 import pandas as pd
-df = pd.DataFrame(records)
-```
 
-### Load to Database
-
-```python
-from app.services.loader import DataLoader
-
-loader = DataLoader()
-
-# Load single file
-result = loader.load_file("ABSTRACT_SUBDV")
-print(f"Loaded {result['records_loaded']} records")
-
-# Load all files
-results = loader.load_all_files()
-summary = loader.get_load_summary(results)
-print(f"Total records: {summary['total_records']}")
-```
-
-### Query Database
-
-```python
-import pandas as pd
-from app.config import DATABASE_CONFIG
-
-conn_string = f"postgresql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['database']}"
+# Connect to database
+conn = psycopg2.connect(
+    host="localhost",
+    port=5432,
+    database="kaufman_cad",
+    user="cad_user",
+    password="cad_password"
+)
 
 # Query properties
-df = pd.read_sql("""
-    SELECT prop_id, owner_name, situs_street, appraised_val
-    FROM cad.appraisal_info
-    WHERE appraised_val > 500000
-    LIMIT 100
-""", conn_string)
+query = """
+SELECT
+    i.prop_id,
+    i.owner_name,
+    i.situs_city,
+    MAX(e.assessed_val) as appraised_value
+FROM cad.appraisal_info i
+LEFT JOIN cad.appraisal_entity_info e
+    ON i.prop_id = e.prop_id
+WHERE i.situs_city = 'FORNEY'
+GROUP BY i.prop_id, i.owner_name, i.situs_city
+"""
+
+df = pd.read_sql(query, conn)
+print(f"Found {len(df):,} properties in Forney")
+print(f"Average value: ${df['appraised_value'].mean():,.0f}")
 ```
+
+### SQL Analysis Examples
+
+See `sql/examples/basic_queries.sql` for 15+ ready-to-use queries:
+
+- Property counts by city
+- Value distributions
+- Subdivision searches
+- Multi-property owners
+- Recent construction
+- Entity-specific valuations
 
 ## Database Schema
 
-The database uses the `cad` schema with tables matching each file type:
+### Core Tables
 
-- `cad.appraisal_info` - Main property records
-- `cad.appraisal_entity_info` - Property-entity relationships
-- `cad.appraisal_land_detail` - Land segment details
-- `cad.appraisal_improvement_info` - Improvement summaries
-- `cad.appraisal_improvement_detail` - Improvement details
-- And more...
+**appraisal_info** - Main property records
 
-See `docs/data_layout.md` for complete field definitions.
+```sql
+prop_id (BIGINT)           -- Unique property identifier
+owner_name (VARCHAR)       -- Property owner
+mail_addr_line1 (VARCHAR)  -- Mailing address
+situs_street (VARCHAR)     -- Property street address
+situs_city (VARCHAR)       -- Property city
+legal_desc (VARCHAR)       -- Legal description
+prop_val_yr (INTEGER)      -- Tax year
+```
+
+**appraisal_entity_info** - Property values by taxing entity
+
+```sql
+prop_id (BIGINT)       -- Links to appraisal_info
+entity_cd (VARCHAR)    -- Taxing entity code (CF=City, KC=County, etc.)
+assessed_val (BIGINT)  -- Appraised value (corrected)
+taxable_val (BIGINT)   -- Taxable value
+exempt_val (BIGINT)    -- Exempt value
+```
+
+**appraisal_land_detail** - Land parcels
+
+```sql
+prop_id (BIGINT)
+land_seg_id (BIGINT)
+state_cd (VARCHAR)       -- State code (HS=Homesite)
+land_acres (BIGINT)
+appraised_val (BIGINT)
+```
+
+**appraisal_improvement_info** - Buildings/structures
+
+```sql
+prop_id (BIGINT)
+impr_id (BIGINT)
+homesite_flag (VARCHAR)  -- Y/N homesite indicator
+year_built (INTEGER)     -- Often NULL in this dataset
+appraised_val (BIGINT)
+```
+
+### Relationships
+
+```
+appraisal_info (1) ──< (N) appraisal_entity_info
+appraisal_info (1) ──< (N) appraisal_land_detail
+appraisal_info (1) ──< (N) appraisal_improvement_info
+appraisal_improvement_info (1) ──< (N) appraisal_improvement_detail
+```
+
+## Data Dictionary
+
+See [docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md) for complete field definitions.
+
+**Important Notes:**
+
+1. **Assessed Value Correction**
+
+   - The `assessed_val` field had a parsing error in the original file format
+   - Correction formula applied: `(last_2_digits × 10,000) + (first_6_digits ÷ 100)`
+   - Example: `991200000000036` → `$369,912`
+   - See `app/services/file_reader.py` for implementation
+
+2. **Year Built**
+
+   - Field exists but is NULL for most properties in this dataset
+   - Use improvement date fields if available
+
+3. **Multiple Entity Values**
+   - Properties have separate value records for each taxing jurisdiction
+   - Use `MAX(assessed_val)` to get official appraised value
 
 ## Development
 
 ### Running Tests
 
-Use the notebook `housing1.ipynb` for interactive testing and prototyping.
-
-### Adding New File Types
-
-1. Add file configuration to `config/file_layouts.json`
-2. Add corresponding table to `sql/001_create_schema.sql`
-3. Test with the notebook
-
-### Logging
-
-Logging is configured in `app/utils/logging_config.py`. Set the level via:
-
-```python
-from app.utils.logging_config import setup_logger
-logger = setup_logger("cad_loader", level="DEBUG")
+```bash
+source .venv/bin/activate
+pytest tests/
 ```
+
+### Code Style
+
+This project follows PEP 8 guidelines. Format code with:
+
+```bash
+black app/ scripts/
+flake8 app/ scripts/
+```
+
+### Adding New Analyses
+
+1. Create new notebook in `analysis/` directory
+2. Follow structure in `analysis/gateway_parks_analysis.ipynb`
+3. Include:
+   - Purpose and methodology sections
+   - Preliminary findings
+   - Well-documented code cells
+   - Results export
+
+See `.github/copilot-instructions.md` for detailed standards.
 
 ## Troubleshooting
 
-### Database Connection Failed
+### Docker Services Won't Start
 
 ```bash
-# Check if container is running
-docker-compose ps
+# Check if ports are in use
+lsof -i :5432  # PostgreSQL
+lsof -i :5050  # pgAdmin
 
-# View logs
-docker-compose logs postgres
-
-# Restart containers
-docker-compose restart
+# Reset Docker services
+docker-compose down
+docker-compose up -d
 ```
 
-### File Not Found
+### Database Connection Errors
 
-Ensure data files are in the correct directory with the expected prefix:
-`Kaufman-CAD-2025-.../2025-10-27_002174_APPRAISAL_*.TXT`
+```bash
+# Verify PostgreSQL is running
+docker ps | grep kaufman_cad_db
 
-### Parse Errors
+# Check logs
+docker logs kaufman_cad_db
 
-Check the file layout configuration in `config/file_layouts.json` matches the actual file structure.
+# Test connection
+docker exec kaufman_cad_db psql -U cad_user -d kaufman_cad -c "\dt cad.*"
+```
 
-### INFO File Layout Notes
+### Data Loading Errors
 
-The APPRAISAL_INFO file has a complex 9,263-character fixed-width layout. The documented layout from the PDF may not match actual field positions. Key verified positions:
+**File not found:**
 
-| Field        | Start | Length | Description            |
-| ------------ | ----- | ------ | ---------------------- |
-| prop_id      | 0     | 12     | Property ID            |
-| prop_type_cd | 12    | 1      | Property type (R=Real) |
-| prop_val_yr  | 18    | 4      | Tax year (2025)        |
-| owner_id     | 596   | 12     | Owner ID               |
-| owner_name   | 608   | 70     | Owner name             |
-| situs_street | 745   | 40     | Property address       |
-| situs_city   | 873   | 30     | Property city          |
-| situs_zip    | 978   | 10     | Property ZIP           |
-| legal_desc   | 1145  | 150    | Legal description      |
+- Verify data directory name matches `Kaufman-CAD-2025-...`
+- Check `app/config.py` for correct `DATA_DIR` path
 
-Note: Positions 13-17 and 22-595 contain filler/additional data not currently parsed.
+**Encoding errors:**
+
+- Files use `latin1` encoding (configured in `file_layouts.json`)
+- Don't convert files to UTF-8
+
+**Value errors:**
+
+- Assessed values should be reasonable ($10K - $1M range)
+- If seeing billions, value correction may not have applied
+- Check `app/services/file_reader.py` parse_value() function
+
+### pgAdmin Access
+
+**URL:** http://localhost:5050  
+**Email:** admin@admin.com  
+**Password:** admin
+
+**Add Server:**
+
+- Host: postgres (container name)
+- Port: 5432
+- Database: kaufman_cad
+- Username: cad_user
+- Password: cad_password
 
 ## License
 
-For internal use only. Data is property of Kaufman County CAD.
+MIT License - See LICENSE file for details
+
+## Contributing
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Follow code style guidelines
+4. Add tests for new features
+5. Submit pull request
+
+## Acknowledgments
+
+- **Kaufman County CAD** for providing public access to appraisal data
+- **PostgreSQL** for robust data storage
+- **Jupyter** for interactive analysis capabilities
+
+## Contact
+
+**Project Maintainer:** Tapiwa Maruni  
+**Repository:** https://github.com/tapiwam/kaufman-housing-analysis
 
 ---
 
-_Last Updated: December 2025_
+**Last Updated:** December 2025  
+**Data Version:** 2025 Certified Roll (Supplement 5)
