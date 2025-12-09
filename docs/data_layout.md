@@ -1,3 +1,10 @@
+---
+layout: default
+title: Data Layout
+nav_order: 4
+description: "Technical specifications for CAD data files"
+---
+
 # Kaufman CAD Data Export Layout Documentation
 
 > **Note**: This document was created based on analysis of the data files.

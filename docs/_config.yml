@@ -1,15 +1,22 @@
 title: Kaufman County Housing Analysis
 description: Data-driven insights from public property records in Kaufman County, Texas
-remote_theme: pages-themes/minimal@v0.2.0
+remote_theme: just-the-docs/just-the-docs@v0.8.2
 plugins:
   - jekyll-remote-theme
 
 # Site settings
-show_downloads: true
-google_analytics:
+color_scheme: light
+search_enabled: true
+heading_anchors: true
 
-# Navigation
-header_pages:
-  - index.md
-  - GATEWAY_PARKS_CRIME_RENTAL_ANALYSIS.md
-  - DATA_DICTIONARY.md
+# Aux links (top right)
+aux_links:
+  "View on GitHub":
+    - "https://github.com/tapiwam/kaufman-housing-analysis"
+
+# Footer
+footer_content: "Data sources: Kaufman County CAD, Forney PD | December 2025"
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"

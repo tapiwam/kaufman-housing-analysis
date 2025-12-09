@@ -1,3 +1,10 @@
+---
+layout: default
+title: Data Dictionary
+nav_order: 3
+description: "Field definitions for Kaufman CAD property data"
+---
+
 # Kaufman CAD Data Dictionary
 
 Complete reference for all fields in the Kaufman County Central Appraisal District database.
