@@ -2,6 +2,21 @@
 
 A comprehensive Python application for analyzing property appraisal data from Kaufman County Central Appraisal District (CAD). This project parses fixed-width text files, loads data into PostgreSQL, and provides tools for in-depth property analysis including ownership patterns, value distributions, and investor identification.
 
+---
+
+## 📊 Featured Research: Gateway Parks Crime & Rental Analysis
+
+**[Read the Full Analysis →](docs/GATEWAY_PARKS_CRIME_RENTAL_ANALYSIS.md)**
+
+An investigation into the relationship between investor-owned rental properties and crime in Gateway Parks, Forney, Texas. Key findings include:
+
+- **76.5% of Pueblo Drive** homes are investor-owned (vs. 28% neighborhood average)
+- **13 streets** identified with abnormally high rental concentrations
+- Analysis of **1,208 properties** with ownership classification
+- Institutional investors from **Georgia, Arizona, California** identified
+
+---
+
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PostgreSQL](https://img.shields.io/badge/postgresql-16-blue.svg)](https://www.postgresql.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

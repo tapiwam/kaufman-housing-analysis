@@ -204,10 +204,10 @@ The combination of absentee ownership, high tenant turnover, and potentially les
 Blaming all of Gateway Parks' crime on rentals is **too simple**. The data shows:
 
 1. **Some streets** (like Pueblo) have a clear rental-crime correlation
-2. **Other streets** (like Lawnview) have crime despite being mostly owner-occupied
+2. **Other streets** have some crime despite being mostly owner-occupied
 3. **High investor %** alone doesn't guarantee crime problems
 
-A nuanced approach is needed—one that targets specific problem areas rather than demonizing all rental properties.
+A nuanced approach is needed—one that targets specific problem areas. Further investigation into other factors (lighting, traffic, policing patterns) is warranted.
 
 ---
 
