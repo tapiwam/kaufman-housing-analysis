@@ -39,6 +39,7 @@ Kaufman-CAD-*/
 # Output files
 *.csv
 !analysis/*.csv
+!docs/analysis/*.csv
 
 # Logs
 *.log
