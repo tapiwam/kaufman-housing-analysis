@@ -1,4 +1,5 @@
 # Gateway Parks: Crime and Rental Property Analysis
+
 ## A Data-Driven Investigation into Forney's Growing Neighborhood Concerns
 
 **December 2025 | Kaufman County, Texas**
@@ -15,9 +16,9 @@ This analysis dives deep into public property records to answer a simple questio
 
 **Yes—but it's complicated.**
 
-My investigation found that **Pueblo Drive**, a street with concentrated crime activity in November 2025, has an astounding **76.5% investor ownership rate**. That's more than 3 out of every 4 homes owned by someone who doesn't live there. But other streets flagged for crime issues have the *opposite* profile—they're mostly owner-occupied but adjacent to some of the problem areas.
+My investigation found that **Pueblo Drive**, a street with concentrated crime activity in November 2025, has an astounding **76.5% investor ownership rate**. That's more than 3 out of every 4 homes owned by someone who doesn't live there. But other streets flagged for crime issues have the _opposite_ profile—they're mostly owner-occupied but adjacent to some of the problem areas.
 
-The data tells a nuanced story: rental concentration *can* correlate with crime on specific streets, but as with any analysis blaming all neighborhood problems on rentals is an oversimplification, but I hope this helps.
+The data tells a nuanced story: rental concentration _can_ correlate with crime on specific streets, but as with any analysis blaming all neighborhood problems on rentals is an oversimplification, but I hope this helps.
 
 ---
 
@@ -48,11 +49,11 @@ According to the **Forney Police Department's Transparency Portal**, crime heat 
 
 ### Data Sources
 
-| Source | Description |
-|--------|-------------|
-| **Kaufman County CAD** | 2025 Certified Property Appraisal Roll—includes property ownership, mailing addresses, and assessed values |
-| **Forney PD Transparency Portal** | Crime incident heat maps and call data |
-| **Local News Reports** | NBC DFW, WFAA coverage of Gateway Parks concerns |
+| Source                            | Description                                                                                                |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Kaufman County CAD**            | 2025 Certified Property Appraisal Roll—includes property ownership, mailing addresses, and assessed values |
+| **Forney PD Transparency Portal** | Crime incident heat maps and call data                                                                     |
+| **Local News Reports**            | NBC DFW, WFAA coverage of Gateway Parks concerns                                                           |
 
 ### Methodology
 
@@ -73,11 +74,11 @@ This classification isn't perfect—some owners use PO boxes, and some investors
 
 After excluding builder-owned inventory (Ashton Woods, K Hovnanian), I found:
 
-| Metric | Count | Percentage |
-|--------|-------|------------|
-| **Total Properties Analyzed** | 1,208 | 100% |
-| **Owner-Occupied** | 869 | **71.9%** |
-| **Investor/Non-Owner Occupied** | 339 | **28.1%** |
+| Metric                          | Count | Percentage |
+| ------------------------------- | ----- | ---------- |
+| **Total Properties Analyzed**   | 1,208 | 100%       |
+| **Owner-Occupied**              | 869   | **71.9%**  |
+| **Investor/Non-Owner Occupied** | 339   | **28.1%**  |
 
 This 28% investor rate is notable—it's higher than the national average of about 20% for single-family rentals.
 
@@ -87,20 +88,20 @@ This 28% investor rate is notable—it's higher than the national average of abo
 
 I identified 13 streets where non-owner-occupied properties exceed 40%—well above the neighborhood average:
 
-| Street | Total Homes | Investor % | Median Home Value | High Crime? |
-|--------|-------------|------------|-------------------|-------------|
-| **Pueblo** | 34 | **76.5%** | $321,534 | 🔴 YES |
-| **McCree** | 47 | **70.2%** | $328,299 | — |
-| **Sandlin** | 41 | **70.7%** | $324,160 | — |
-| **Purtis Creek** | 53 | **64.2%** | $324,145 | — |
-| **Lockhart** | 55 | **60.0%** | $167,251 | — |
-| Honey Creek | 18 | 83.3% | $321,979 | — |
-| Bushman | 11 | 81.8% | $75,000 | Builder lots |
-| Bachman | 5 | 100.0% | $75,000 | Builder lots |
-| Watercrest | 9 | 66.7% | $10 | Land parcels |
-| Browder | 8 | 50.0% | $280,674 | — |
-| Parkdale | 16 | 50.0% | $75,000 | — |
-| Ferguson | 11 | 45.5% | $346,669 | — |
+| Street           | Total Homes | Investor % | Median Home Value | High Crime?  |
+| ---------------- | ----------- | ---------- | ----------------- | ------------ |
+| **Pueblo**       | 34          | **76.5%**  | $321,534          | 🔴 YES       |
+| **McCree**       | 47          | **70.2%**  | $328,299          | —            |
+| **Sandlin**      | 41          | **70.7%**  | $324,160          | —            |
+| **Purtis Creek** | 53          | **64.2%**  | $324,145          | —            |
+| **Lockhart**     | 55          | **60.0%**  | $167,251          | —            |
+| Honey Creek      | 18          | 83.3%      | $321,979          | —            |
+| Bushman          | 11          | 81.8%      | $75,000           | Builder lots |
+| Bachman          | 5           | 100.0%     | $75,000           | Builder lots |
+| Watercrest       | 9           | 66.7%      | $10               | Land parcels |
+| Browder          | 8           | 50.0%      | $280,674          | —            |
+| Parkdale         | 16          | 50.0%      | $75,000           | —            |
+| Ferguson         | 11          | 45.5%      | $346,669          | —            |
 
 **Note:** Some high-percentage streets (Bachman, Bushman, Watercrest) are builder inventory or undeveloped lots, not traditional rentals.
 
@@ -110,13 +111,13 @@ I identified 13 streets where non-owner-occupied properties exceed 40%—well ab
 
 **Pueblo Drive stands out as the clearest example of the rental-crime connection.**
 
-| Pueblo Drive Statistics | |
-|------------------------|---|
-| Total Properties | 34 |
-| Owner-Occupied | 8 (23.5%) |
-| Investor-Owned | **26 (76.5%)** |
-| Median Home Value | $321,534 |
-| Crime Status | 🔴 High activity zone per PD heat map |
+| Pueblo Drive Statistics |                                       |
+| ----------------------- | ------------------------------------- |
+| Total Properties        | 34                                    |
+| Owner-Occupied          | 8 (23.5%)                             |
+| Investor-Owned          | **26 (76.5%)**                        |
+| Median Home Value       | $321,534                              |
+| Crime Status            | 🔴 High activity zone per PD heat map |
 
 More than **three-quarters** of homes on Pueblo Drive are owned by investors who live elsewhere. This is nearly **3x the neighborhood average**.
 
@@ -124,13 +125,13 @@ More than **three-quarters** of homes on Pueblo Drive are owned by investors who
 
 Sample investors include:
 
-| Owner | Location |
-|-------|----------|
-| PRNL Residential Buyer LLC | Scottsdale, AZ |
-| Hoque Investments LLC | Richardson, TX |
-| AM7 Reality LLC | Garland, TX |
-| 1829 Pueblo Street Trust | San Francisco, CA |
-| Palani Jothi Rev Trust | Argyle, TX |
+| Owner                      | Location          |
+| -------------------------- | ----------------- |
+| PRNL Residential Buyer LLC | Scottsdale, AZ    |
+| Hoque Investments LLC      | Richardson, TX    |
+| AM7 Reality LLC            | Garland, TX       |
+| 1829 Pueblo Street Trust   | San Francisco, CA |
+| Palani Jothi Rev Trust     | Argyle, TX        |
 
 The street is a mix of **institutional investors** (LLCs based in Arizona, California) and **individual landlords** from across the DFW metro.
 
@@ -140,11 +141,11 @@ The street is a mix of **institutional investors** (LLCs based in Arizona, Calif
 
 Here's where the story gets interesting. **Lawnview Drive** was specifically mentioned in news reports as a crime concern—but the data tells a different story:
 
-| Street | Investor % | Crime Reports |
-|--------|------------|---------------|
-| Pueblo | **76.5%** | 🔴 High |
-| Lawnview | **7.9%** | 🔴 Mentioned in news |
-| Everglades | **25.7%** | 🔴 Mentioned in news |
+| Street     | Investor % | Crime Reports        |
+| ---------- | ---------- | -------------------- |
+| Pueblo     | **76.5%**  | 🔴 High              |
+| Lawnview   | **7.9%**   | 🔴 Mentioned in news |
+| Everglades | **25.7%**  | 🔴 Mentioned in news |
 
 **Lawnview has one of the LOWEST investor rates in the entire subdivision** (7.9%)—well below the 28% neighborhood average. If rentals were the only driver of crime, Lawnview should be one of the safest streets. It's not.
 
@@ -156,19 +157,19 @@ This suggests that **factors other than rental status** contribute to crime on s
 
 I tracked the mailing addresses of investor-owned properties across the highest-concentration streets:
 
-| City | Properties | Region |
-|------|------------|--------|
-| **Allen, TX** | 14 | DFW Metro |
-| **Frisco, TX** | 11 | DFW Metro |
-| **Plano, TX** | 9 | DFW Metro |
-| **Marietta, GA** | 8 | Atlanta (single institutional investor) |
-| **Irving, TX** | 8 | DFW Metro |
-| **Scottsdale, AZ** | 6 | Phoenix Metro |
-| **Prosper, TX** | 6 | DFW Metro |
-| **Houston, TX** | 5 | Houston |
-| **Las Vegas, NV** | 3 | Out of state |
-| **Chantilly, VA** | 3 | Washington DC area |
-| **Dublin, CA** | 3 | San Francisco Bay Area |
+| City               | Properties | Region                                  |
+| ------------------ | ---------- | --------------------------------------- |
+| **Allen, TX**      | 14         | DFW Metro                               |
+| **Frisco, TX**     | 11         | DFW Metro                               |
+| **Plano, TX**      | 9          | DFW Metro                               |
+| **Marietta, GA**   | 8          | Atlanta (single institutional investor) |
+| **Irving, TX**     | 8          | DFW Metro                               |
+| **Scottsdale, AZ** | 6          | Phoenix Metro                           |
+| **Prosper, TX**    | 6          | DFW Metro                               |
+| **Houston, TX**    | 5          | Houston                                 |
+| **Las Vegas, NV**  | 3          | Out of state                            |
+| **Chantilly, VA**  | 3          | Washington DC area                      |
+| **Dublin, CA**     | 3          | San Francisco Bay Area                  |
 
 **Key insight:** Most investors are **local to the DFW area** (Allen, Frisco, Plano), but significant out-of-state capital flows in from Georgia, Arizona, California, Nevada, and Virginia.
 
@@ -177,6 +178,7 @@ I tracked the mailing addresses of investor-owned properties across the highest-
 One investor stands out: **IDF1 SFR PROPCO A LLC**, based in Marietta, Georgia, owns **8+ properties on Sandlin Street alone**. This appears to be a large institutional single-family rental (SFR) operator.
 
 Other notable LLCs include:
+
 - **PRNL Residential Buyer LLC** (Scottsdale, AZ)
 - **Landmark Capital Realty LLC** (Plano, TX)
 - **Hoque Investments LLC** (Richardson, TX)
@@ -190,6 +192,7 @@ Other notable LLCs include:
 ### ✅ For Pueblo Drive: PROBABLY YES (Strong Correlation)
 
 The evidence is compelling:
+
 - **76.5% investor ownership**—the highest in the neighborhood
 - Located in a **crime hot spot** per police data
 - Heavy presence of **out-of-state and institutional investors**
@@ -208,36 +211,40 @@ A nuanced approach is needed—one that targets specific problem areas rather th
 
 ---
 
-
 ## Data & Code Availability
 
 All analysis is reproducible and available in this repository:
 
-| Resource | Description |
-|----------|-------------|
+| Resource                                                                            | Description                                         |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------- |
 | [**Full Analysis Notebook**](analysis/gateway_parks_crime_ownership_analysis.ipynb) | Complete Jupyter notebook with code and methodology |
-| [**Street Statistics CSV**](analysis/gateway_ownership_by_street.csv) | Ownership statistics for every street |
-| [**High-Crime Properties CSV**](analysis/gateway_high_crime_streets_properties.csv) | Property-level data for flagged streets |
-| [**Full Dataset CSV**](analysis/gateway_parks_full_analysis.csv) | Complete property dataset with classifications |
+| [**Street Statistics CSV**](analysis/gateway_ownership_by_street.csv)               | Ownership statistics for every street               |
+| [**High-Crime Properties CSV**](analysis/gateway_high_crime_streets_properties.csv) | Property-level data for flagged streets             |
+| [**Full Dataset CSV**](analysis/gateway_parks_full_analysis.csv)                    | Complete property dataset with classifications      |
 
 ---
 
 ## Sources
 
 ### Property Data
+
 - **Kaufman County Central Appraisal District** — 2025 Certified Full Roll Download (updated with Supplement 5)
 - Data includes: Property ID, owner name, situs address, mailing address, legal description, appraised values
 
 ### Crime Data
+
 - **Forney Police Department Transparency Portal** — [forneypdtx-transparency.connect.socrata.com](https://forneypdtx-transparency.connect.socrata.com/)
 - Crime heat maps and incident data for November-December 2025
 
 ### News Reports
+
 - **NBC DFW** (November 2025) — "Forney neighbors fight new development amid rise in crime"
 - **WFAA** — Coverage of Gateway Parks resident concerns
 
 ### Technical Acknowledgment
+
 This analysis utilized AI assistance (GitHub Copilot / Claude) to help:
+
 - Parse fixed-width county data files
 - Develop ownership classification methodology
 - Generate statistical summaries and visualizations
@@ -255,4 +262,4 @@ All conclusions and interpretations are based on public data and represent the a
 
 ---
 
-*This research is provided for informational purposes only. Property ownership status does not imply involvement in criminal activity. Individual investors and landlords should not be prejudged based on aggregate statistics.*
+_This research is provided for informational purposes only. Property ownership status does not imply involvement in criminal activity. Individual investors and landlords should not be prejudged based on aggregate statistics._
